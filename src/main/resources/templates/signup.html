@@ -1,0 +1,78 @@
+<!-- src/main/resources/templates/signup.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- ✅ Important for responsiveness -->
+  <title>Sign Up</title>
+  
+  <!-- ✅ Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+  <!-- ✅ Navbar with collapse toggle -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{/}">Student Management</a>
+
+      <!-- Toggler for small screens -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
+              aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" th:href="@{/students}">Students</a></li>
+          
+
+          <li class="nav-item" th:if="${session.loggedInUser == null}">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+          </li>
+          <li class="nav-item" th:if="${session.loggedInUser != null}">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ✅ Sign-up Form -->
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card p-4 shadow-sm">
+          <h4 class="text-center mb-3">Sign Up</h4>
+          <form th:action="@{/signup}" method="post" th:object="${user}">
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" th:field="*{username}" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" th:field="*{password}" class="form-control" required>
+            </div>
+            <div th:if="${error}" class="text-danger mb-2" th:text="${error}"></div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+            <a th:href="@{/}" class="btn btn-link btn-block">Back to Home</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Bootstrap JS & dependencies for navbar collapse to work -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9zU9jK/ScQkOgPTAmw1u/2N6GGKtFQGNNpJbG"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+
+</body>
+</html>
